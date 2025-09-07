@@ -16,3 +16,13 @@
     <ul id="taskList">Tasks goes here</ul>
 
 <script>
+
+     function addTask(){
+        const taskText = getTaskText();
+
+        if (taskText){
+            addTaskItem(taskText);
+        } else{
+            console.log("No task entered");
+        }
+    }
