@@ -45,22 +45,31 @@
     }
 
 function createDeleteButton(li){
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = " X ";
-    deleteBtn.className = "delete-btn";
-    deleteBtn.style.marginleft = "8px";
-    deleteBtn.onclick = () => handleDeleteClick(li);
+      const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = " Delete ";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.style.marginLeft = "8px";
+        deleteBtn.onclick = () => handleDeleteClick(li);
 
-    console.log("createDeleteButton() called ->", li.textContent);
-    return deleteBtn;
-
-}
+        console.log("createDeleteButton() called ->", li.textContent);
+        return deleteBtn;
+    }
 
 function handleDeleteClick(li){
-    console.log("handleDeleteClick() ->", li.textContent.replace(" X ","").trim(),Date())
-li.remove();
-    
-}
+    const currentText = li.firstChild.textContent.trim();
+        console.log("handleEditClick() -> current:", currentText, Date());
+
+        const newText = prompt("Edit your task",  currentText);
+
+        if(newText !== null && newText.trim() !==""){
+            li.firstChild.textContent = newText.trim();
+            console.log("handleEditClick() -> updated to: ", newText.trim(), Date());
+        } else {
+            console.log("handleEditClick -> no changes made");
+        }
+    }
+
+
 
 </script>
 </body>
