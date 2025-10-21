@@ -24,6 +24,11 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+         .popup-image{
+        max-width: 200px;
+        height: auto;
+        object-fit: fill;
+    }
     </style>
 </head>
 <body>
@@ -51,7 +56,12 @@
                     
                     data.forEach(pin => {
                         const marker = L.marker([pin.lat, pin.lng]).addTo(map);
-                        marker.bindPopup(`<strong>${pin.name}</strong><br>${pin.description}`);
+                        const img = `<img src='${pin.img}' class="popup-image">`;
+                    marker.bindPopup(`
+                        ${img} <br>
+                        <b>${pin.title}<br>
+                        ${pin.description}
+                    `);
                         console.log(`${pin.name} Loaded ` + Date());
                     });
                 })
