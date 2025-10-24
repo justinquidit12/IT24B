@@ -86,7 +86,16 @@
 });
 
 Object.values(markerGroups).forEach(group => group.addTo(map));
-            })
+const overlayMaps = {};
+Object.keys(markerGroups).forEach(type => {
+    overlayMaps[type] = markerGroup[type];
+            });
+
+            L.control.tileLayer(basMaps, overlayMaps).addTo(map);
+
+        })
+        .catch(error => console.error("Error loading map data:", error));
+    
         
     
     document.addEventListener('DOMContentLoaded', () => {
