@@ -62,7 +62,32 @@
         const markerGroups = {};
 
         fetch(campus-map.json)
+            .then(response => response.json())
+            .then(data => {
+               data.forEach(pin => {
+    const type = pin.locationType || "other";
 
+    //create marker group
+    if (!markerGroups[type]) {
+        markerGroups[type] = L.layerGroup();
+    }
+
+    //marker and popup
+    const marker = L.marker([pin.lat, pin.lng]).addTo(map);
+    const img = `<img src='${pin.img}' class='popup-image'>`;
+    marker.bindPopup(`
+        ${img}<br>
+        <br>${pin.name}</br><br>
+        ${pin.description}
+    `);
+    console.log("Pin added: " + pin.name + " " + Date());
+
+    markerGroups[type].addLayer(marker);
+});
+
+Object.values(markerGroups).forEach(group => group.addTo(map));
+            })
+        
     
     document.addEventListener('DOMContentLoaded', () => {
         initMap('campus-map.json');
